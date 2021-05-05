@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace ChatApp.Pages
 {
@@ -19,7 +20,10 @@ namespace ChatApp.Pages
 
         public void OnGet()
         {
-
+            if (HttpContext.Session.GetString("user") == null)
+            {
+                Response.Redirect("/Login");
+            }
         }
     }
 }

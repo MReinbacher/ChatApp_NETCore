@@ -1,0 +1,23 @@
+﻿@page
+@model ChatApp.Pages.LoginModel
+@{
+}
+
+<style type="text/css">
+    .form-control {
+        position: relative;
+    }
+
+    .form-control:focus {
+        z-index: 2;
+    }
+</style>
+<div class="text-center mt-5">
+    <form style="max-width: 300px; width: 50vw; margin: auto;" autocomplete="off" method="POST">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputTemname" class="sr-only">Teamname</label>
+        <input type="input" name="name" id="inputUsername" class="form-control" placeholder="Username" required=""
+            autofocus="">
+        <button class="btn btn-lg btn-primary mt-4" type="submit">Sign in</button>
+    </form>
+</div>

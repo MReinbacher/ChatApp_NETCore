@@ -1,10 +1,66 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Chat";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style type="text/css">
+    .chatbox {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .message {
+        border: 2px solid #dedede;
+        background-color: #99ccff;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .message-own {
+        border: 2px solid #dedede;
+        background-color: #3399ff;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .message-user {}
+
+    .message-time {
+        color: #e6e6e6;
+    }
+</style>
+
+
+
+<div class="chatbox text-break">
+    <div id="messages" class="overflow-auto" style="overflow-y: scroll; height:500px;">
+        @* <div class="message">
+            <div class="font-weight-bold text-right">Testuser</div>
+            <div>Test</div>
+            <div class="message-time text-right">Zeit</div>
+        </div>
+        <div class="message-own">
+            <div class="font-weight-bold">Testuser</div>
+            <div>Test</div>
+            <div class="message-time">Zeit</div>
+        </div> *@
+    </div>
+
+    <form id="sendMsg" action="" method="POST">
+        <div class="input-group mb-3">
+            <input id="msg" type="text" class="form-control" placeholder="Message" aria-label="Message">
+            <div class="input-group-append">
+                <button id="sendBtn" class="btn btn-success" type="submit">Send</button>
+            </div>
+        </div>
+    </form>
 </div>
+
+<script src="~/js/signalr-js/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
