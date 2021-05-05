@@ -1,4 +1,8 @@
 "use strict";
+
+// Initially loading old messages
+load_history();
+
 // Creating a connection to SignalR Hub
 var connection = new signalR.HubConnectionBuilder().withUrl("/signalr-server").build();
 
@@ -24,6 +28,15 @@ connection.on("BroadcastMessage", function (msg) {
     add_message(msg);
 });
 
+// Load chat history
+async function load_history() {
+    var history = await getMessages();
+    history.forEach(function (item, index) {
+        add_message(item);
+    });
+}
+
+// Add message to html 
 async function add_message(msg) {
     var local_user = await getUser();
     var content = ``;
@@ -47,6 +60,7 @@ async function add_message(msg) {
     document.getElementById("messages").innerHTML += content;
 }
 
+// API call to get Username
 async function getUser() {
     return await fetch("/chat/username")
         .then(async function (response) {
@@ -57,6 +71,18 @@ async function getUser() {
         });
 }
 
+// API call to get messages
+async function getMessages() {
+    return await fetch("/chat/message")
+        .then(async function (response) {
+            return await response.json();
+        })
+        .then(function (json) {
+            return json;
+        });
+}
+
+// format timestamp
 function formatDateTime(timestamp) {
     var x = new Date(timestamp);
     var day = prependZero(x.getDate());
@@ -68,6 +94,7 @@ function formatDateTime(timestamp) {
     return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 }
 
+// prepend zero to numbers < 10
 function prependZero(x) {
     if (x < 10) {
         x = "0" + x;
